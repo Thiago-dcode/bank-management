@@ -3,7 +3,7 @@ package org.mybank;
 public class User {
     private int id;
     private final String name;
-    private static int total;
+    private static int total = 0;
     private int age;
     public User( String name, int age) {
     this.name = name;
@@ -19,6 +19,9 @@ public class User {
     }
     public int getAge(){
         return this.age;
+    }
+    public static int getTotal(){
+        return total;
     }
 
     public void save(){

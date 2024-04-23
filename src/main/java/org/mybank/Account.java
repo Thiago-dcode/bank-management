@@ -24,10 +24,13 @@ public class Account {
 
         return balance;
     }
-    private void throwInvalidAmountException(double amount) throws InvalidAmountException {
-        if(amount <= 0){
-            throw new InvalidAmountException();
-        }
+
+    public Account transfer(Account to, double amount){
+        throwInvalidAmountException(amount);
+        throwInsufficientFundsException(amount);
+        this.balance -= amount;
+        to.deposit(amount);
+        return this;
     }
     public Account deposit(double amount) {
        throwInvalidAmountException(amount);
@@ -36,11 +39,28 @@ public class Account {
     }
     public Account withdraw(double amount) {
         throwInvalidAmountException(amount);
+        throwInsufficientFundsException(amount);
+        this.balance -= amount;
+        return this;
+    }
+    private void throwInvalidAmountException(double amount) throws InvalidAmountException {
+        if(amount <= 0){
+            throw new InvalidAmountException();
+        }
+    }
+    private void throwInsufficientFundsException(double amount) throws InsufficientFundsException {
         if(amount > balance) {
             throw new InsufficientFundsException();
         }
-        this.balance -= amount;
-        return this;
+
+    }
+    @Override
+    public String toString(){
+
+        return "Account ID: " + id + " Name: " + name + " Balance: " + balance;
+    }
+    public String getName(){
+        return name;
     }
 
 }
