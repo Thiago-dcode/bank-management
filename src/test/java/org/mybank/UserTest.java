@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class UserTest {
-    User user =  new User(1,"Thiago", 30);
+    User user =  new User("Thiago", 30);
 
     @Test
     void getId() {

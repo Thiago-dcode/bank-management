@@ -1,14 +1,15 @@
 package org.mybank;
 
 public class User {
-    private final int id;
+    private int id;
     private final String name;
+    private static int total;
     private int age;
-    public User(int id, String name, int age) {
-    this.id = id;
+    public User( String name, int age) {
     this.name = name;
     this.age = age;
-
+    total++;
+    this.id = total;
     }
     public int getId(){
         return this.id;
