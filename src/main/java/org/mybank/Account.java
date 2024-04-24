@@ -19,6 +19,10 @@ public class Account {
         total++;
         this.id = total;
     }
+    public int getId() {
+        return id;
+
+    }
 
     public double getBalance() {
 
