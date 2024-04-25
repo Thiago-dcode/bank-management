@@ -19,6 +19,10 @@ public class User {
     total++;
     this.id = total;
     users.put(name, this);
+    Bank.addUser(name);
+    }
+    public static void addUser(User user) {
+        users.put(user.name, user);
     }
     public static boolean userExists(String name) {
         return users.containsKey(name);

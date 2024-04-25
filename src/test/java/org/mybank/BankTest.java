@@ -105,6 +105,19 @@ class BankTest {
         assertThrows(InsufficientFundsException.class,()->bank.withdraw(savings.getId(), 2000));
 
     }
+    @Test
+    void ShouldTransfer() throws DuplicateEntityException, UnauthorizedException, UserNotFoundException, AccountNotFoundException {
+        bank.registerUser("Luis",30);
+        bank.loginUser("Luis");
+        Account savings = bank.createAccount("Savings",2000);
+        bank.registerUser("Pilot",30);
+        User pilot = User.getUser("Pilot");
+        assertInstanceOf(User.class,pilot);
+        Account pilotAccount = new Account("Work",pilot,2000);
+        bank.transfer(savings.getId(), pilot.getName(), pilotAccount.getId(),2000);
+        assertEquals(0,savings.getBalance());
+        assertEquals(4000,pilotAccount.getBalance());
+    }
 
 
 }

@@ -12,7 +12,7 @@ public class Account {
     private  User user;
     private String name;
     private double balance;
-    private LinkedList<Transaction> transactions;
+    private final LinkedList<Transaction> transactions;
 
     public Account(String name,User user, double balance) {
         this.name = name;
@@ -20,7 +20,8 @@ public class Account {
         this.balance = balance;
         total++;
         this.id = total;
-        this.transactions = new LinkedList<>();
+        transactions = new LinkedList<>();
+        Bank.addAccount(user.getName(),this);
     }
     public int getId() {
         return id;

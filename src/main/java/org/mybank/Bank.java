@@ -2,6 +2,7 @@ package org.mybank;
 
 import exceptions.*;
 import org.mybank.transaction.DepositTransaction;
+import org.mybank.transaction.TransferTransaction;
 import org.mybank.transaction.WithdrawTransaction;
 
 import java.util.HashMap;
@@ -20,6 +21,12 @@ public class Bank {
         this.userLogin = null;
     }
 
+    public static void addUser(String username) {
+        userAccounts.putIfAbsent(username, new LinkedList<>());
+    }
+    public static void addAccount(String username,Account account) {
+        userAccounts.get(username).add(account);
+    }
     public Account createAccount(String accountName) throws UnauthorizedException {
         isUserAuthenticated();
         Account account = new Account(accountName,userLogin,0);
@@ -38,6 +45,7 @@ public class Bank {
         }
         User newUser = new User(username,age);
         userAccounts.put(username,new LinkedList<Account>() );
+        User.addUser(newUser);
         return newUser;
     }
     public void loginUser(String username) throws UserNotFoundException {
@@ -64,6 +72,15 @@ public class Bank {
 
 
     }
+    public boolean transfer( int accountId,String usernameTo, int accountIdTo, double amount) throws UserNotFoundException, UnauthorizedException, AccountNotFoundException, InvalidAmountException, InsufficientFundsException {
+        Account account = findAccount0rError(accountId);
+        Account accountTo = findAccount0rError(usernameTo,accountIdTo);
+        TransferTransaction transferTransaction = new TransferTransaction(account, amount,accountTo);
+        transferTransaction.execute();
+        return true;
+
+
+    }
     public boolean isLoggedIn(){
         return this.userLogin != null;
     }
@@ -74,17 +91,24 @@ public class Bank {
     }
     public Account findAccount0rError( int accountId) throws UserNotFoundException, AccountNotFoundException, UnauthorizedException {
         isUserAuthenticated();
-        LinkedList<Account> accounts = userAccounts.get(userLogin.getName());
+        return findAccount(userLogin.getName(), accountId);
+    }
+    public Account findAccount0rError( String username, int accountId) throws UserNotFoundException, AccountNotFoundException, UnauthorizedException {
+        isUserAuthenticated();
+        return findAccount(username, accountId);
+    }
+    private Account findAccount(String username, int accountId){
+        LinkedList<Account> accounts = userAccounts.get(username);
         if(accounts == null){
-            userAccounts.put(userLogin.getName(), new LinkedList<Account>());
+            userAccounts.put(username, new LinkedList<Account>());
             return null;
         }
         for(Account account : accounts){
             if(account.getId() == accountId){
-              return account;
+                return account;
             }
         }
-       return null;
+        return null;
     }
 
 }
