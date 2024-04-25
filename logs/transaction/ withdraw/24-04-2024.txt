@@ -1,0 +1,4 @@
+withdraw-transaction 24/28/24 15:28:06 [id=1, user=1, account=1 amount: 2000.0]
+
+withdraw-transaction 24/26/24 22:26:55 [id=9, user=thiago, account=14 amount: 2000.0]
+

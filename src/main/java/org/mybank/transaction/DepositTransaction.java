@@ -1,5 +1,6 @@
 package org.mybank.transaction;
 
+import exceptions.InsufficientFundsException;
 import org.mybank.Account;
 import org.mybank.User;
 
@@ -11,21 +12,17 @@ public class DepositTransaction  extends Transaction{
     double depositAmount;
 
 
-    public DepositTransaction(User user, Account account, double depositAmount) {
-        super(user, account,"deposit");
+    public DepositTransaction(Account account, double depositAmount) {
+        super(account,"deposit");
         this.depositAmount = depositAmount;
     }
-    public boolean execute(){
-        try{
+    public boolean execute() throws InsufficientFundsException {
+
             getAccount().deposit(depositAmount);
+            getAccount().addTransaction(this);
             write(toString());
             save();
             return true;
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-            return false;
-        }
 
 
     }

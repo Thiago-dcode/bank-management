@@ -1,14 +1,30 @@
 package org.mybank;
 
+import exceptions.DuplicateEntityException;
 import exceptions.InsufficientFundsException;
 import exceptions.InvalidAmountException;
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
-    User thiago = new User("thiago",30);
-    Account account1 = new Account("Default",thiago, 2000);
+
+    User thiago ;
+    Account account1 ;
+
+    AccountTest() throws DuplicateEntityException {
+
+    }
+    @BeforeEach
+    public void setUp() throws DuplicateEntityException {
+
+        System.out.println("this should only be called once?");
+           thiago = new User("manolo",30);
+           account1 = new Account("Default",thiago, 2000);
+
+    }
 
 
     @Test

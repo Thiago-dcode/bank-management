@@ -13,12 +13,12 @@ import java.io.IOException;
 public abstract class Transaction {
     private static int total = 0;
     private int id;
-    private User user;
+
     private Account account;
     private String type;
 
-    public Transaction(User user, Account account,String type) {
-        this.user = user;
+    public Transaction( Account account,String type) {
+
         this.account = account;
         this.type = type;
                total++;
@@ -28,13 +28,14 @@ public abstract class Transaction {
     public int getId() {
         return id;
     }
+
     public Account getAccount() {
         return account;
     }
 
     @Override
     public String toString(){
-        return type+ "-transaction " + DateUtils.getCurrentDate("dd/mm/yy HH:mm:ss") + " [id=" + id  + ", user=" + user.getId() + ", account=" + account.getId() ;
+        return type+ "-transaction " + DateUtils.getCurrentDate("dd/MM/yy HH:mm:ss") + " [id=" + id  + ", user=" + account.getUser().getName() + ", account=" + account.getId() ;
     }
 
     public void write(String txt){
