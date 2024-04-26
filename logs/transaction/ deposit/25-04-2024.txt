@@ -16,3 +16,7 @@ deposit-transaction 25/04/24 12:09:35 [id=1, user=Buffer, account=1 amount: 2000
 
 deposit-transaction 25/04/24 12:19:19 [id=1, user=Buffer, account=1 amount: 2000.0]
 
+deposit-transaction 25/04/24 20:27:16 [id=1, user=Buffer, account=1 amount: 2000.0]
+
+deposit-transaction 25/04/24 23:16:57 [id=1, user=thiago, account=1 amount: 2000.0]
+

@@ -42,7 +42,11 @@ public class User {
     public static int getTotal(){
         return total;
     }
+    @Override
+    public String toString(){
 
+        return "User: " + this.name + " Age: " + this.age + " ID: " + this.id;
+    }
     public void save(){
         //save the user in the db;
     }

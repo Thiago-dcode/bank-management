@@ -76,6 +76,10 @@ public class Account {
 
         return "Account ID: " + id + " Name: " + name + " Balance: " + balance;
     }
+    public String toString(Boolean showBalance){
+
+        return "Account ID: " + id + " Name: " + name + (showBalance?" Balance: " + balance:"");
+    }
     public String getName(){
         return name;
     }

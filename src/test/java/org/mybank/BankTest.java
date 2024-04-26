@@ -3,6 +3,10 @@ package org.mybank;
 import exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mybank.transaction.DepositTransaction;
+import org.mybank.transaction.WithdrawTransaction;
+
+import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -70,11 +74,24 @@ class BankTest {
 
     }
     @Test
+    void shouldReturnAllUsersAccounts() throws DuplicateEntityException, UnauthorizedException, UserNotFoundException {
+        User user = bank.registerUser("Example",30);
+         bank.loginUser(user.getName());
+         bank.createAccount("Savings");
+        bank.createAccount("Work");
+        bank.createAccount("Default");
+        LinkedList<Account> accounts = bank.getUserAccounts();
+        assertEquals(3, accounts.size());
+        assertEquals("Savings", accounts.getFirst().getName());
+        assertEquals("Work", accounts.get(1).getName());
+        assertEquals("Default", accounts.get(2).getName());
+    }
+    @Test
     void ShouldDeposit() throws DuplicateEntityException, UnauthorizedException, UserNotFoundException, AccountNotFoundException {
         bank.registerUser("Buffer",30);
         bank.loginUser("Buffer");
         Account savings = bank.createAccount("Savings");
-        assertTrue(bank.deposit(savings.getId(), 2000));
+        assertEquals(DepositTransaction.class,bank.deposit(savings.getId(), 2000).getClass());
         assertEquals(2000,savings.getBalance());
 
 
@@ -92,7 +109,7 @@ class BankTest {
         bank.registerUser("Manola",30);
         bank.loginUser("Manola");
         Account savings = bank.createAccount("Savings",2000);
-        assertTrue(bank.withdraw(savings.getId(), 2000));
+        assertInstanceOf(WithdrawTransaction.class,bank.withdraw(savings.getId(), 2000));
         assertEquals(0,savings.getBalance());
 
 
