@@ -35,6 +35,11 @@ public class Bank {
     public static void addAccount(String username,Account account) {
         userAccounts.get(username).add(account);
     }
+
+    public  User getUserLogin() {
+        return userLogin;
+    }
+
     public Account createAccount(String accountName) throws UnauthorizedException {
         isUserAuthenticated();
 

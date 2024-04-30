@@ -9,16 +9,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 
 public abstract class Transaction {
     private static int total = 0;
     private int id;
-
+    private String date;
     private Account account;
     private String type;
 
     public Transaction( Account account,String type) {
-
+        this.date = "";
         this.account = account;
         this.type = type;
                total++;
@@ -35,10 +36,11 @@ public abstract class Transaction {
 
     @Override
     public String toString(){
-        return type+ "-transaction " + DateUtils.getCurrentDate("dd/MM/yy HH:mm:ss") + " [id=" + id  + ", user=" + account.getUser().getName() + ", account=" + account.getId() ;
+        return type.toUpperCase()+ ": " + this.date + " [id=" + id ;
     }
 
     public void write(String txt){
+       this.date = DateUtils.getCurrentDate("dd/MM/yy HH:mm:ss");
         FileUtils.write("logs/transaction/ " + type,DateUtils.getCurrentDate("dd-MM-yyyy") +".txt",txt);
     }
     abstract boolean execute();

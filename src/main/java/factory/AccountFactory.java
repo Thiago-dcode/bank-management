@@ -17,8 +17,8 @@ public class AccountFactory {
         return new Account(name,user,balance);
     }
     public static Account createAccount(User user) throws DuplicateEntityException {
-        String name = faker.name().name();
-        int balance = faker.number().numberBetween(0, 5000);
+        String name = faker.name().username();
+        double balance = faker.number().randomDouble(3,0,10000);
         return new Account(name,user,balance);
     }
 
