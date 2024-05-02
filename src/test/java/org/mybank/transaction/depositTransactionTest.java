@@ -1,6 +1,7 @@
 package org.mybank.transaction;
 
 import exceptions.DuplicateEntityException;
+import exceptions.InvalidAmountException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -20,7 +21,7 @@ class DepositTransactionTest {
     DepositTransaction depositTransaction;
     @BeforeEach
     void setUp() throws DuplicateEntityException {
-        user = new User("thiago", 30);
+        user = User.userExists("thiago")? User.getUser("thiago"): new User("thiago",30);
         account = new Account("default",user,2000);
         depositTransaction = new DepositTransaction(account,2000);
     }
@@ -38,7 +39,7 @@ class DepositTransactionTest {
     void depositTransactionOnInvalidAmount() {
 
         depositTransaction = new DepositTransaction(account,-1000);
-        assertFalse( depositTransaction.execute());
+        assertThrows(InvalidAmountException.class, ()->depositTransaction.execute());
         assertEquals(2000,account.getBalance());
         assertFalse(account.getTransactions().contains(depositTransaction));
 

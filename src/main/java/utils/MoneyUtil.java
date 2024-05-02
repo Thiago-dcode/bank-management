@@ -1,5 +1,7 @@
 package utils;
 
+import java.text.DecimalFormat;
+
 public class MoneyUtil {
 
     public static String format(double money) {
@@ -13,6 +15,11 @@ public class MoneyUtil {
         }
 
         return beforeStr+ afterStr;
+
+    }
+    public static double round(double money, int places) {
+        if(places <= 0 || money == 0) return money;
+       return (double) Math.round(money * Math.pow(10,places)) /Math.pow(10,places);
 
     }
     public static String format(double money,String symbol){

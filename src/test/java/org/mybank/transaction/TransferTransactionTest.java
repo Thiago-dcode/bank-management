@@ -1,6 +1,8 @@
 package org.mybank.transaction;
 
 import exceptions.DuplicateEntityException;
+import exceptions.InsufficientFundsException;
+import exceptions.InvalidAmountException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybank.Account;
@@ -17,9 +19,9 @@ class TransferTransactionTest {
     TransferTransaction transferTransaction;
     @BeforeEach
     void setUp() throws DuplicateEntityException {
-        user = new User("thiago", 30);
+        user = User.userExists("thiago")? User.getUser("thiago"): new User("thiago",30);
         account = new Account("default",user,2000);
-        userTo = new User("manolo", 18);
+        userTo = User.userExists("manolo")? User.getUser("manolo"): new User("manolo",30);
         accountTo = new Account("savings",userTo,2000);
         transferTransaction = new TransferTransaction(account, 2000,accountTo);
     }
@@ -37,7 +39,7 @@ class TransferTransactionTest {
     void transferTransactionOnInvalidAmount() {
 
         transferTransaction = new TransferTransaction(account,3000,accountTo);
-        assertFalse(transferTransaction.execute());
+        assertThrows(InsufficientFundsException.class, ()->transferTransaction.execute());
         assertEquals(2000,account.getBalance());
         assertFalse(account.getTransactions().contains(transferTransaction));
 

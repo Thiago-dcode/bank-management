@@ -32,6 +32,15 @@ public class UserProfile extends javax.swing.JPanel implements ActionListener {
         text.setHorizontalAlignment(JLabel.CENTER);
         this.add(text, BorderLayout.NORTH);
         renderAccounts();
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(null);
+        buttonPanel.setPreferredSize(new Dimension(100, 50));
+
+      JButton createAccount = new JButton("Create Account");
+         createAccount.setBounds(10,10,150,20); createAccount.addActionListener(this);
+         createAccount.setActionCommand("createAccount");
+       buttonPanel.add(createAccount);
+        super.add(buttonPanel,BorderLayout.SOUTH);
     }
     public void renderAccounts(){
         JPanel content = new JPanel();
@@ -60,6 +69,10 @@ public class UserProfile extends javax.swing.JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getActionCommand().equals("createAccount")){
+            Router.get(e.getActionCommand());
+            return;
+        }
     Router.get("account",e.getActionCommand());
     }
 }

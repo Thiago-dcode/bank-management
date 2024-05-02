@@ -138,4 +138,8 @@ public class Bank {
     public String getName() {
         return this.bankName;
     }
+
+    public void logOut() {
+        this.userLogin = null;
+    }
 }

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
 
-    User thiago ;
+    User manolo ;
     Account account1 ;
 
     AccountTest() throws DuplicateEntityException {
@@ -20,9 +20,8 @@ class AccountTest {
     @BeforeEach
     public void setUp() throws DuplicateEntityException {
 
-        System.out.println("this should only be called once?");
-           thiago = new User("manolo",30);
-           account1 = new Account("Default",thiago, 2000);
+           manolo =User.userExists("manolo")? User.getUser("manolo"): new User("manolo",30);
+           account1 = new Account("Default",manolo, 2000);
 
     }
 
@@ -46,8 +45,8 @@ class AccountTest {
     }
     @Test
     void transfer(){
-        Account toTransfer = new Account("Default",thiago, 2000);
-        Account toTransfer1 = new Account("Default",thiago, 0);
+        Account toTransfer = new Account("Default",manolo, 2000);
+        Account toTransfer1 = new Account("Default",manolo, 0);
         try{
             account1.transfer(toTransfer,5000);
 

@@ -1,6 +1,7 @@
 package org.mybank.transaction;
 
 import exceptions.DuplicateEntityException;
+import exceptions.InsufficientFundsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybank.Account;
@@ -33,7 +34,7 @@ class WithdrawTransactionTest {
     void withdrawTransactionOnInvalidAmount() {
 
         withdrawTransaction = new WithdrawTransaction(account,3000);
-        assertFalse( withdrawTransaction.execute());
+        assertThrows(InsufficientFundsException.class, ()->withdrawTransaction.execute());
         assertEquals(2000,account.getBalance());
 
 

@@ -3,6 +3,7 @@ package gui.components.panels;
 import org.mybank.Account;
 import org.mybank.Bank;
 import org.mybank.transaction.Transaction;
+import org.mybank.transaction.TransferTransaction;
 import router.Router;
 
 import javax.swing.*;
@@ -67,8 +68,9 @@ public class AccountPanel extends javax.swing.JPanel implements ActionListener {
         content.setMaximumSize(new Dimension(400, 300));
         for (Transaction transaction : account.getTransactions()) {
             ;
+
             JLabel label = new JLabel(transaction.toString());
-            label.setForeground(Color.black);
+                     label.setForeground(Color.black);
             label.setFont(new Font("Monospace", Font.PLAIN, 12));
             content.add(label);
 
@@ -84,10 +86,13 @@ public class AccountPanel extends javax.swing.JPanel implements ActionListener {
         switch (e.getActionCommand().toLowerCase()) {
             case "deposit":
                 Router.get("deposit", account.getId() + "");
+                return;
             case "withdraw":
                 Router.get("withdraw", account.getId() + "");
+                return;
             case "transfer":
                 Router.get("transfer", account.getId() + "");
+
         }
     }
 }

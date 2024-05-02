@@ -3,6 +3,7 @@ package org.mybank;
 import static org.junit.jupiter.api.Assertions.*;
 
 import exceptions.DuplicateEntityException;
+import factory.UserFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,5 +47,10 @@ class UserTest {
     @Test
     void getAge() {
         assertEquals(30,user.getAge());
+    }
+    @Test
+    void getALL() throws DuplicateEntityException {
+        User[] users = UserFactory.createManyUsers(10);
+        assertEquals(11,User.getAll().size());
     }
 }

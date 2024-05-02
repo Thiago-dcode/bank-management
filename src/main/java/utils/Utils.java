@@ -9,6 +9,7 @@ public class Utils {
 
     }
 
+
     public static void exit(String message) {
         System.out.println(message);
         System.exit(0);

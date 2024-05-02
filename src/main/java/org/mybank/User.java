@@ -2,7 +2,10 @@ package org.mybank;
 
 import exceptions.DuplicateEntityException;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class User {
     private int id;
@@ -29,6 +32,10 @@ public class User {
     }
     public static User getUser(String name) {
         return users.get(name);
+    }
+    public static List<User> getAll(){
+
+        return  new LinkedList<>(users.values());
     }
     public int getId(){
         return this.id;

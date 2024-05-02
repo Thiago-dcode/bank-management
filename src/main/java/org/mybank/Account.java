@@ -3,6 +3,7 @@ package org.mybank;
 import exceptions.InsufficientFundsException;
 import exceptions.InvalidAmountException;
 import org.mybank.transaction.Transaction;
+import utils.MoneyUtil;
 
 import java.util.LinkedList;
 
@@ -41,27 +42,33 @@ public class Account {
     public User getUser() {
         return user;
     }
-
-    public Account transfer(Account to, double amount){
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+    public Account transfer(Account to, double amount) throws InsufficientFundsException , InvalidAmountException {
         throwInvalidAmountException(amount);
         throwInsufficientFundsException(amount);
         this.balance -= amount;
+        setBalance(MoneyUtil.round(this.balance,4));
         to.deposit(amount);
+
         return this;
     }
     public Account deposit(double amount) throws InsufficientFundsException {
        throwInvalidAmountException(amount);
         this.balance += amount;
+        setBalance(MoneyUtil.round(this.balance,4));
         return this;
     }
     public Account withdraw(double amount) {
         throwInvalidAmountException(amount);
         throwInsufficientFundsException(amount);
         this.balance -= amount;
+        setBalance(MoneyUtil.round(this.balance,4));
         return this;
     }
     private void throwInvalidAmountException(double amount) throws InvalidAmountException {
-        if(amount <= 0){
+        if(amount <= 0 || amount > 10000){
             throw new InvalidAmountException();
         }
     }

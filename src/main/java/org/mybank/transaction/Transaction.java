@@ -38,7 +38,10 @@ public abstract class Transaction {
     public String toString(){
         return type.toUpperCase()+ ": " + this.date + " [id=" + id ;
     }
-
+    public void write(String type,String txt){
+        this.date = DateUtils.getCurrentDate("dd/MM/yy HH:mm:ss");
+        FileUtils.write("logs/transaction/ " + type,DateUtils.getCurrentDate("dd-MM-yyyy") +".txt",txt);
+    }
     public void write(String txt){
        this.date = DateUtils.getCurrentDate("dd/MM/yy HH:mm:ss");
         FileUtils.write("logs/transaction/ " + type,DateUtils.getCurrentDate("dd-MM-yyyy") +".txt",txt);
